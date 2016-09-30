@@ -37,6 +37,7 @@ bool bits[24];
 // 000000 <-- Row 4
 int displayRow = 1;
 
+// Set all the pins that will be used.
 void setup(){
     // Set columns
     pinMode(C1, OUTPUT);
@@ -52,6 +53,7 @@ void setup(){
     pinMode(R4, OUTPUT);
 }
 
+// Clear all pins and the bits array.
 void clearTime() {
     // Turn off columns
     digitalWrite(C1, LOW);
@@ -69,6 +71,7 @@ void clearTime() {
     memset(bits, false, 24 * sizeof(bool));
 }
 
+// Map the bits that have been set to true to turning on the appropriate pins.
 void displayTime() {
     if (C1){
         digitalWrite(C1, HIGH);
@@ -102,6 +105,7 @@ void displayTime() {
     }
 }
 
+// Insert the given bits into the bits array at the given offset.
 void insertIntoBits(bool * b, int offset) {
    bits[0 + offset] = b[0];
    bits[1 + offset] = b[1];
@@ -109,6 +113,7 @@ void insertIntoBits(bool * b, int offset) {
    bits[3 + offset] = b[3];
 }
 
+// Convert the given int into into a four bit array.
 bool * intToBits(int n) {
     bool bits[4];
     switch (n) {
@@ -170,12 +175,8 @@ bool * intToBits(int n) {
     return bits;
 }
 
-// Update the hour bits.
-// _0____
-// _0____
-// 00____
-// 00____
-void updateBits(int n, int offset) {
+// Update the bits array with the given int at the given offset.
+void setBits(int n, int offset) {
     char number[2];
     sprintf(number, "%02d", n);
     int first = atoi(number[0]);
@@ -190,7 +191,7 @@ void updateBits(int n, int offset) {
 // 00____
 // 00____
 void updateHour(int n) {
-    updateBits(n, 0);
+    setBits(n, 0);
 }
 
 // Update the minute bits.
@@ -199,7 +200,7 @@ void updateHour(int n) {
 // __00__
 // __00__
 void updateMinute(int n) {
-    updateBits(n, 9);
+    setBits(n, 9);
 }
 
 // Update the second bits.
@@ -208,22 +209,26 @@ void updateMinute(int n) {
 // ____00
 // ____00
 void updateSecond(int n) {
-    updateBits(n, 17);
+    setBits(n, 17);
 }
 
+// Change the time that will be displayed next.
 void updateTime(int h, int m, int s) {
     updateHour(h);
     updateMinute(m);
     updateSecond(s);
 }
 
+// The main loop.
 void loop(){
     clearTime();
     updateTime(12, 34, 56);
     displayTime();
     delay(5);
+    // Increment the display row.
     displayRow++;
     if (displayRow > 4) {
         displayRow = 1;
     }
+    // Add debug time to serial port.
 }
