@@ -14,7 +14,27 @@
 // The time bits are stored as a boolean array.
 bool bits[24];
 
-// The current row to light up for displaying to time.
+// The current row to light up for displaying the time.
+// The rows cycle top to bottom.
+// _0_0_0 <-- Row 1
+// _00000
+// 000000
+// 000000
+//
+// _0_0_0
+// _00000 <-- Row 2
+// 000000
+// 000000
+//
+// _0_0_0
+// _00000
+// 000000 <-- Row 3
+// 000000
+//
+// _0_0_0
+// _00000
+// 000000
+// 000000 <-- Row 4
 int displayRow = 1;
 
 void setup(){
@@ -191,26 +211,6 @@ void updateSecond(int n) {
     updateBits(n, 17);
 }
 
-// The rows need to cycle top to bottom.
-// _0_0_0 <--
-// _00000
-// 000000
-// 000000
-//
-// _0_0_0
-// _00000 <--
-// 000000
-// 000000
-//
-// _0_0_0
-// _00000
-// 000000 <--
-// 000000
-//
-// _0_0_0
-// _00000
-// 000000
-// 000000 <--
 void updateTime(int h, int m, int s) {
     updateHour(h);
     updateMinute(m);
