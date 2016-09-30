@@ -14,6 +14,9 @@
 // The time bits are stored as a boolean array.
 bool bits[24];
 
+// The current row to light up for displaying to time.
+int displayRow = 1;
+
 void setup(){
     // Set columns
     pinMode(C1, OUTPUT);
@@ -46,16 +49,128 @@ void clearTime() {
     memset(bits, false, 24 * sizeof(bool));
 }
 
+void displayTime() {
+    if (C1){
+        digitalWrite(C1, HIGH);
+    }
+    if (C2){
+        digitalWrite(C2, HIGH);
+    }
+    if (C3){
+        digitalWrite(C3, HIGH);
+    }
+    if (C4){
+        digitalWrite(C4, HIGH);
+    }
+    if (C5){
+        digitalWrite(C5, HIGH);
+    }
+    if (C6){
+        digitalWrite(C6, HIGH);
+    }
+    if (R1 && displayRow == 1){
+        digitalWrite(R1, HIGH);
+    }
+    if (R2 && displayRow == 2){
+        digitalWrite(R2, HIGH);
+    }
+    if (R3 && displayRow == 3){
+        digitalWrite(R3, HIGH);
+    }
+    if (R4 && displayRow == 4){
+        digitalWrite(R4, HIGH);
+    }
+}
+
+void insertIntoBits(bool * b, int offset) {
+   bits[0 + offset] = b[0];
+   bits[1 + offset] = b[1];
+   bits[2 + offset] = b[2];
+   bits[3 + offset] = b[3];
+}
+
+bool * intToBits(int n) {
+    bool bits[4];
+    switch (n) {
+        case 1:
+            bits[0] = false; // Remove 0s after debugging.
+            bits[1] = false;
+            bits[2] = false;
+            bits[3] = true;
+            break;
+        case 2:
+            bits[0] = false;
+            bits[1] = false;
+            bits[2] = true;
+            bits[3] = false;
+            break;
+        case 3:
+            bits[0] = false;
+            bits[1] = false;
+            bits[2] = true;
+            bits[3] = true;
+            break;
+        case 4:
+            bits[0] = false;
+            bits[1] = true;
+            bits[2] = false;
+            bits[3] = false;
+            break;
+        case 5:
+            bits[0] = false;
+            bits[1] = true;
+            bits[2] = false;
+            bits[3] = true;
+            break;
+        case 6:
+            bits[0] = false;
+            bits[1] = true;
+            bits[2] = true;
+            bits[3] = false;
+            break;
+        case 7:
+            bits[0] = false;
+            bits[1] = true;
+            bits[2] = true;
+            bits[3] = true;
+            break;
+        case 8:
+            bits[0] = true;
+            bits[1] = false;
+            bits[2] = false;
+            bits[3] = false;
+            break;
+        case 9:
+            bits[0] = true;
+            bits[1] = false;
+            bits[2] = false;
+            bits[3] = true;
+            break;
+    }
+    return bits;
+}
+
+// Update the hour bits.
+// _0____
+// _0____
+// 00____
+// 00____
+void updateBits(int n, int offset) {
+    char number[2];
+    sprintf(number, "%02d", n);
+    int first = atoi(number[0]);
+    int second = atoi(number[1]);
+    insertIntoBits(intToBits(first), offset);
+    insertIntoBits(intToBits(first), offset + 4);
+}
+
 // Update the hour bits.
 // _0____
 // _0____
 // 00____
 // 00____
 void updateHour(int n) {
-    char number[2];
-    sprintf(number, "%d", n);
-    int first = strtonum(number[0], NULL, 10);
-    // int second = strtoumax(number[1], NULL, 10);
+    updateBits(n, 0);
 }
 
 // Update the minute bits.
@@ -64,7 +179,7 @@ void updateHour(int n) {
 // __00__
 // __00__
 void updateMinute(int n) {
-
+    updateBits(n, 9);
 }
 
 // Update the second bits.
@@ -73,7 +188,7 @@ void updateMinute(int n) {
 // ____00
 // ____00
 void updateSecond(int n) {
-
+    updateBits(n, 17);
 }
 
 // The rows need to cycle top to bottom.
@@ -105,37 +220,10 @@ void updateTime(int h, int m, int s) {
 void loop(){
     clearTime();
     updateTime(12, 34, 56);
+    displayTime();
     delay(5);
-
-    // if (co1 == 1){
-    //   digitalWrite(C1, HIGH);
-    // }
-    // if (co2 == 1){
-    //   digitalWrite(C2, HIGH);
-    // }
-    // if (co3 == 1){
-    //   digitalWrite(C3, HIGH);
-    // }
-    // if (co4 == 1){
-    //   digitalWrite(C4, HIGH);
-    // }
-    // if (co5 == 1){
-    //   digitalWrite(C5, HIGH);
-    // }
-    // if (co6 == 1){
-    //   digitalWrite(C6, HIGH);
-    // }
-
-    // if (ro == 1){
-    //   digitalWrite(R1, HIGH);
-    // }
-    // if (ro == 2){
-    //   digitalWrite(R2, HIGH);
-    // }
-    // if (ro == 3){
-    //   digitalWrite(R3, HIGH);
-    // }
-    // if (ro == 4){
-    //   digitalWrite(R4, HIGH);
-    // }
+    displayRow++;
+    if (displayRow > 4) {
+        displayRow = 1;
+    }
 }
