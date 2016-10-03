@@ -15,28 +15,27 @@
 bool timeBits[24];
 bool numberBits[4];
 
-// The current row to light up for displaying the time.
-// The rows cycle top to bottom.
-// _0_0_0 <-- Row 1
+// The current column to light up for displaying the time.
+// _0_0_0
 // _00000
 // 000000
 // 000000
 //
 // _0_0_0
-// _00000 <-- Row 2
+// _00000
 // 000000
 // 000000
 //
 // _0_0_0
 // _00000
-// 000000 <-- Row 3
+// 000000
 // 000000
 //
 // _0_0_0
 // _00000
 // 000000
-// 000000 <-- Row 4
-int displayRow = 1;
+// 000000
+int displayColumn = 1;
 
 // Set all the pins that will be used.
 void setup(){
@@ -52,8 +51,6 @@ void setup(){
     pinMode(R2, OUTPUT);
     pinMode(R3, OUTPUT);
     pinMode(R4, OUTPUT);
-    // Open Serial Port
-    Serial.begin(9600);
 }
 
 // Clear all pins and the timeBits array.
@@ -88,45 +85,35 @@ void allOn() {
 // Map the timeBits that have been set to true to turning on the appropriate pins.
 void displayTime() {
     // Turn on columns.
-    if (timeBits[0] || timeBits[1] || timeBits[2] || timeBits[3]) {
-        //Serial.println("Column 1");
+    if (displayColumn == 1) {
         digitalWrite(C1, HIGH);
     }
-    if (timeBits[4] || timeBits[5] || timeBits[6] || timeBits[7]) {
-        //Serial.println("Column 2");
+    if (displayColumn == 2) {
         digitalWrite(C2, HIGH);
     }
-    if (timeBits[8] || timeBits[9] || timeBits[10] || timeBits[11]) {
-        //Serial.println("Column 3");
+    if (displayColumn == 3) {
         digitalWrite(C3, HIGH);
     }
-    if (timeBits[12] || timeBits[13] || timeBits[14] || timeBits[15]) {
-        //Serial.println("Column 4");
+    if (displayColumn == 4) {
         digitalWrite(C4, HIGH);
     }
-    if (timeBits[16] || timeBits[17] || timeBits[18] || timeBits[19]) {
-        //Serial.println("Column 5");
+    if (displayColumn == 5) {
         digitalWrite(C5, HIGH);
     }
-    if (timeBits[20] || timeBits[21] || timeBits[22] || timeBits[23]) {
-        //Serial.println("Column 6");
+    if (displayColumn == 6) {
         digitalWrite(C6, HIGH);
     }
     // Turn on rows.
-    if (displayRow == 1){
-        //Serial.println("Row 1");
+    if (timeBits[0] || timeBits[4] || timeBits[8] || timeBits[12] || timeBits[16] || timeBits[20]){
         digitalWrite(R1, HIGH);
     }
-    if (displayRow == 2){
-        //Serial.println("Row 2");
+    if (timeBits[1] || timeBits[5] || timeBits[9] || timeBits[13] || timeBits[17] || timeBits[21]){
         digitalWrite(R2, HIGH);
     }
-    if (displayRow == 3){
-        //Serial.println("Row 3");
+    if (timeBits[2] || timeBits[6] || timeBits[10] || timeBits[14] || timeBits[18] || timeBits[22]){
         digitalWrite(R3, HIGH);
     }
-    if (displayRow == 4){
-        //Serial.println("Row 4");
+    if (timeBits[3] || timeBits[7] || timeBits[11] || timeBits[15] || timeBits[19] || timeBits[23]){
         digitalWrite(R4, HIGH);
     }
 }
@@ -206,10 +193,10 @@ void setBits(int n, int offset) {
     char number[2];
     sprintf(number, "%02d", n);
     value = number[0];
-    int first = value.toInt();
-    value = number[1];
-    int second = value.toInt();
+    intToBits(value.toInt());
     insertIntoBits(offset);
+    value = number[1];
+    intToBits(value.toInt());
     insertIntoBits(offset + 4);
 }
 
@@ -248,20 +235,24 @@ void updateTime(int h, int m, int s) {
 }
 
 // Increment the display row.
-void incrementRow() {
-    displayRow++;
-    if (displayRow > 4) {
-        displayRow = 1;
+void incrementColumn() {
+    displayColumn++;
+    if (displayColumn > 6) {
+        displayColumn = 1;
     }
+}
+
+void debug() {
+    delay(500);
 }
 
 // The main loop.
 void loop(){
     clearTime();
     updateTime(12, 34, 56);
-//    allOn();
+    //allOn();
     displayTime();
-    incrementRow();
-    delay(20);
-    // Add debug time to serial port.
+    incrementColumn();
+    //debug();
+    delay(2);
 }
