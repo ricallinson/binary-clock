@@ -4,4 +4,4 @@
 *.so
 
 # Folders
-.DS_Store
+*.DS_Store

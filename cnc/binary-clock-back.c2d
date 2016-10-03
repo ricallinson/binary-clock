@@ -14,7 +14,7 @@
                 12.700000000000003,
                 101.59999999999999
             ],
-            "radius": 3.1000000000000001
+            "radius": 3.2000000000000002
         },
         {
             "id": "{2a81aec7-900b-40e1-bcb0-4b1285456dcf}",
@@ -22,7 +22,7 @@
                 152.39999999999998,
                 101.59999999999999
             ],
-            "radius": 3.1000000000000001
+            "radius": 3.2000000000000002
         },
         {
             "id": "{0d55c111-04cb-4915-80a9-b9d90bfaccde}",
@@ -30,7 +30,7 @@
                 152.39999999999998,
                 12.699999999999999
             ],
-            "radius": 3.1000000000000001
+            "radius": 3.2000000000000002
         },
         {
             "id": "{515731ff-2206-40c9-8f87-7a43fb0ffac8}",
@@ -38,7 +38,7 @@
                 12.700000000000001,
                 12.699999999999999
             ],
-            "radius": 3.1000000000000001
+            "radius": 3.2000000000000002
         }
     ],
     "CURVE_OBJECTS": [
@@ -403,7 +403,7 @@
     ],
     "TOOLPATH_OBJECTS": [
         {
-            "automatic_parameters": true,
+            "automatic_parameters": false,
             "contours": [
             ],
             "enabled": true,
@@ -411,25 +411,25 @@
             "name": "Inside",
             "ofset_dir": 2,
             "speeds": {
-                "feedrate": 424.18000000000001,
-                "plungerate": 106.045,
-                "rpm": 6250
+                "feedrate": 189.297,
+                "plungerate": 94.647999999999996,
+                "rpm": 6161
             },
             "start_depth": 0,
-            "stepdown": 0.70399999999999996,
-            "stepover": 1.429,
+            "stepdown": 2,
+            "stepover": 7.0869999999999997,
             "tolerance": 0.01,
             "tool": {
                 "angle": 0,
                 "corner_radius": 0,
-                "diameter": 3.1749999999999998,
+                "diameter": 15.747999999999999,
                 "display_mm": false,
-                "flutes": 2,
+                "flutes": 1,
                 "length": 19.049999999999997,
-                "name": "",
-                "number": 102,
+                "name": "5/8",
+                "number": 301,
                 "overall_length": 0,
-                "uuid": "{00000000-0000-0000-0000-000000000102}"
+                "uuid": "{c710986d-21e7-4540-a599-2f94e2287dea}"
             },
             "uuid": "{7592fa67-b12d-4223-8a80-7d0e86f2d993}",
             "vcarve": false
