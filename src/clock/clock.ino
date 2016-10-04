@@ -303,17 +303,12 @@ void incrementColumn() {
     }
 }
 
-void debug() {
-    delay(500);
-}
-
 // The main loop.
 void loop(){
     clearTime();
     updateTime(hour(), minute(), second());
     displayTime();
     incrementColumn();
-    //debug();
-    delay(2);
+    delay(2); // Required to make sure we can still connect to the arduino.
 }
 
