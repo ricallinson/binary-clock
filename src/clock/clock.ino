@@ -87,34 +87,93 @@ void displayTime() {
     // Turn on columns.
     if (displayColumn == 1) {
         digitalWrite(C1, HIGH);
+        if (timeBits[0]) {
+            digitalWrite(R4, HIGH);
+        }
+        if (timeBits[1]) {
+            digitalWrite(R3, HIGH);
+        }
+        if (timeBits[2]) {
+            digitalWrite(R2, HIGH);
+        }
+        if (timeBits[3]) {
+            digitalWrite(R1, HIGH);
+        }
     }
     if (displayColumn == 2) {
         digitalWrite(C2, HIGH);
+        if (timeBits[4]) {
+            digitalWrite(R4, HIGH);
+        }
+        if (timeBits[5]) {
+            digitalWrite(R3, HIGH);
+        }
+        if (timeBits[6]) {
+            digitalWrite(R2, HIGH);
+        }
+        if (timeBits[7]) {
+            digitalWrite(R1, HIGH);
+        }
     }
     if (displayColumn == 3) {
         digitalWrite(C3, HIGH);
+        if (timeBits[8]) {
+            digitalWrite(R4, HIGH);
+        }
+        if (timeBits[9]) {
+            digitalWrite(R3, HIGH);
+        }
+        if (timeBits[10]) {
+            digitalWrite(R2, HIGH);
+        }
+        if (timeBits[11]) {
+            digitalWrite(R1, HIGH);
+        }
     }
     if (displayColumn == 4) {
         digitalWrite(C4, HIGH);
+        if (timeBits[12]) {
+            digitalWrite(R4, HIGH);
+        }
+        if (timeBits[13]) {
+            digitalWrite(R3, HIGH);
+        }
+        if (timeBits[14]) {
+            digitalWrite(R2, HIGH);
+        }
+        if (timeBits[15]) {
+            digitalWrite(R1, HIGH);
+        }
     }
     if (displayColumn == 5) {
         digitalWrite(C5, HIGH);
+        if (timeBits[16]) {
+            digitalWrite(R4, HIGH);
+        }
+        if (timeBits[17]) {
+            digitalWrite(R3, HIGH);
+        }
+        if (timeBits[18]) {
+            digitalWrite(R2, HIGH);
+        }
+        if (timeBits[19]) {
+            digitalWrite(R1, HIGH);
+        }
     }
     if (displayColumn == 6) {
         digitalWrite(C6, HIGH);
-    }
-    // Turn on rows.
-    if (timeBits[0] || timeBits[4] || timeBits[8] || timeBits[12] || timeBits[16] || timeBits[20]){
-        digitalWrite(R1, HIGH);
-    }
-    if (timeBits[1] || timeBits[5] || timeBits[9] || timeBits[13] || timeBits[17] || timeBits[21]){
-        digitalWrite(R2, HIGH);
-    }
-    if (timeBits[2] || timeBits[6] || timeBits[10] || timeBits[14] || timeBits[18] || timeBits[22]){
-        digitalWrite(R3, HIGH);
-    }
-    if (timeBits[3] || timeBits[7] || timeBits[11] || timeBits[15] || timeBits[19] || timeBits[23]){
-        digitalWrite(R4, HIGH);
+        if (timeBits[20]) {
+            digitalWrite(R4, HIGH);
+        }
+        if (timeBits[21]) {
+            digitalWrite(R3, HIGH);
+        }
+        if (timeBits[22]) {
+            digitalWrite(R2, HIGH);
+        }
+        if (timeBits[23]) {
+            digitalWrite(R1, HIGH);
+        }
     }
 }
 
@@ -215,7 +274,7 @@ void updateHour(int n) {
 // __00__
 // __00__
 void updateMinute(int n) {
-    setBits(n, 9);
+    setBits(n, 8);
 }
 
 // Update the second timeBits.
@@ -224,7 +283,7 @@ void updateMinute(int n) {
 // ____00
 // ____00
 void updateSecond(int n) {
-    setBits(n, 17);
+    setBits(n, 16);
 }
 
 // Change the time that will be displayed next.
