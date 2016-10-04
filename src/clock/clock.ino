@@ -1,7 +1,5 @@
 #include <TimeLib.h>
 
-#include <Time.h> 
-
 // Define columns
 #define C6 4
 #define C5 5
@@ -24,21 +22,19 @@ bool numberBits[4];
 // _00000
 // 000000
 // 000000
+// ^ Column 1
 //
 // _0_0_0
 // _00000
 // 000000
 // 000000
+//  ^ Column 2
 //
 // _0_0_0
 // _00000
 // 000000
 // 000000
-//
-// _0_0_0
-// _00000
-// 000000
-// 000000
+//   ^ Column 3, and so on...
 int displayColumn = 1;
 
 // Set all the pins that will be used.
@@ -315,9 +311,9 @@ void debug() {
 void loop(){
     clearTime();
     updateTime(hour(), minute(), second());
-    //allOn();
     displayTime();
     incrementColumn();
     //debug();
     delay(2);
 }
+
