@@ -1,3 +1,7 @@
+#include <TimeLib.h>
+
+#include <Time.h> 
+
 // Define columns
 #define C6 4
 #define C5 5
@@ -51,6 +55,8 @@ void setup(){
     pinMode(R2, OUTPUT);
     pinMode(R3, OUTPUT);
     pinMode(R4, OUTPUT);
+    // Set the time to UTC.
+    setTime(12,0,0,1,1,1970);
 }
 
 // Clear all pins and the timeBits array.
@@ -308,7 +314,7 @@ void debug() {
 // The main loop.
 void loop(){
     clearTime();
-    updateTime(12, 34, 56);
+    updateTime(hour(), minute(), second());
     //allOn();
     displayTime();
     incrementColumn();
